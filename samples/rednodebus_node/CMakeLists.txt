@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
-cmake_minimum_required(VERSION 3.13.1)
+cmake_minimum_required(VERSION 3.20.0)
 
 string(REPLACE " " ";" OVERLAY_CONFIG_LIST ${OVERLAY_CONFIG})
 if("overlay-ot-rnb.conf" IN_LIST OVERLAY_CONFIG_LIST)
@@ -18,3 +18,5 @@ target_sources(app PRIVATE src/main.c)
 target_include_directories(app PUBLIC ../../include)
 target_include_directories_ifdef(CONFIG_REDNODEBUS app PUBLIC ../common/src)
 target_sources_ifdef(CONFIG_REDNODEBUS app PRIVATE ../common/src/rnb_utils.c)
+
+
