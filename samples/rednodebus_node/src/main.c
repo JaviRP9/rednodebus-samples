@@ -42,11 +42,11 @@ static void fetch_and_display(const struct device *sensor)
 	if (rc < 0) {
 		LOG_INF("ERROR: Update failed: %d\n", rc);
 	} else {
-		LOG_INF("#%u @ %u ms: %sx %f , y %f , z %f\n",
-		       count, k_uptime_get_32(), overrun,
-		       sensor_value_to_double(&accel[0]),
-		       sensor_value_to_double(&accel[1]),
-		       sensor_value_to_double(&accel[2]));
+		LOG_INF("#%u @ %u ms: %sx: %d.%d  , y: %d.%d , z: %d.%d\n",
+			   count, k_uptime_get_32(), overrun,
+			   accel[0].val1,accel[0].val2,
+		       accel[1].val1,accel[1].val2,
+			   accel[2].val1,accel[2].val2);
 	}
 }
 
