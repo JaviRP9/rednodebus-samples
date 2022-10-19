@@ -23,7 +23,7 @@ LOG_MODULE_DECLARE(net_echo_client_sample, LOG_LEVEL_DBG);
 
 #define RECV_BUF_SIZE 1280
 #define UDP_SLEEP K_MSEC(150)
-#define UDP_WAIT K_SECONDS(60)
+#define UDP_WAIT K_SECONDS(15)
 
 static APP_BMEM char recv_buf[RECV_BUF_SIZE];
 
@@ -32,13 +32,17 @@ static int send_udp_data(struct data *data)
 	int ret;
 
 	do {
-		data->udp.expecting = sys_rand32_get() % ipsum_len;
+		data->udp.expecting = ipsum_len;
 	} while (data->udp.expecting == 0U ||
 		 data->udp.expecting > data->udp.mtu);
 
 	ret = send(data->udp.sock, lorem_ipsum, data->udp.expecting, 0);
 
 	LOG_DBG("%s UDP: Sent %d bytes", data->proto, data->udp.expecting);
+	LOG_DBG("Accelerometer: x: %d.%d y: %d.%d z: %d.%d ",
+			(int32_t)lorem_ipsum[0],(int32_t)(lorem_ipsum[0]* 1000000) % 1000000,
+			(int32_t)lorem_ipsum[1],(int32_t)(lorem_ipsum[1]* 1000000) % 1000000,
+			(int32_t)lorem_ipsum[2],(int32_t)(lorem_ipsum[2]* 1000000) % 1000000);
 
 	k_work_reschedule(&data->udp.recv, UDP_WAIT);
 
