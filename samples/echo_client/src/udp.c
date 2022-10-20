@@ -87,8 +87,8 @@ static int start_udp_proto(struct data *data, struct sockaddr *addr,
 {
 	int ret;
 
-	k_work_init_delayable(&data->udp.recv, wait_reply);
-	k_work_init_delayable(&data->udp.transmit, wait_transmit);
+	//k_work_init_delayable(&data->udp.recv, wait_reply);
+	//k_work_init_delayable(&data->udp.transmit, wait_transmit);
 
 #if defined(CONFIG_NET_SOCKETS_SOCKOPT_TLS)
 	data->udp.sock = socket(addr->sa_family, SOCK_DGRAM, IPPROTO_DTLS_1_2);
@@ -216,17 +216,18 @@ int start_udp(void)
 			return ret;
 		}
 	}
-
+/*
 	if (IS_ENABLED(CONFIG_NET_IPV6)) {
 		ret = send_udp_data(&conf.ipv6);
 		if (ret < 0) {
 			return ret;
 		}
 	}
-
+*/
 	if (IS_ENABLED(CONFIG_NET_IPV4)) {
 		ret = send_udp_data(&conf.ipv4);
 	}
+
 
 	return ret;
 }
