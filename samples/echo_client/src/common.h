@@ -61,9 +61,10 @@ struct configs {
 #define CONFIG_NET_CONFIG_PEER_IPV6_ADDR "2001:0db8:0001:ffff:0000:0000:ac11:0001"
 #endif
 
-extern int32_t lorem_ipsum[6];
+extern int32_t lorem_ipsum[8];
 extern int ipsum_len;
 extern struct configs conf;
+void rnb_utils_get_euid(uint8_t *euid);
 
 int start_udp(void);
 int process_udp(void);

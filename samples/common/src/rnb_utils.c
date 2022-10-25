@@ -61,7 +61,7 @@ static void process_rnb_utils_event(const struct device *dev,
 				    const struct rednodebus_user_event_params *params);
 static void rnb_utils_process_thread(void *arg1, void *arg2, void *arg3);
 static void ot_start_work_handler(struct k_work *item);
-static void rnb_utils_get_euid(uint8_t *euid);
+void rnb_utils_get_euid(uint8_t *euid);
 
 static void ot_start_work_handler(struct k_work *item)
 {
