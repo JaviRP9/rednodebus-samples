@@ -25,11 +25,12 @@ int send_udp_data(struct data *data)
 	int ret;
 	static int packets_sent;
 
-	memcpy(&lorem_ipsum[UID_CHARS + SESSION_RAND_CHARS], &packets_sent, sizeof(packets_sent));
+	//memcpy(&lorem_ipsum[UID_CHARS + SESSION_RAND_CHARS], &packets_sent, sizeof(packets_sent));
+	lorem_ipsum[3] = packets_sent;
 
 	do {
 		//data->udp.transmitting = sys_rand32_get() % ipsum_len;
-		data->udp.transmitting = UDP_TRANSMISSION_BYTES % ipsum_len;
+		data->udp.transmitting = ipsum_len;
 	} while (data->udp.transmitting == 0U ||
 		 data->udp.transmitting > data->udp.mtu);
 
