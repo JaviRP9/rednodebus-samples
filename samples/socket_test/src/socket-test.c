@@ -71,8 +71,6 @@ static void init_app(void)
 	lorem_ipsum[0] = (uint32_t)euid;
 	lorem_ipsum[1] = (uint32_t)(euid >> 32);
 
-	//sprintf(lorem_ipsum, "%04X%04X", (uint32_t)(euid >> 32), (uint32_t)euid);
-
 	int session_rand = sys_rand32_get();
 	lorem_ipsum[2] = session_rand;
 #endif
@@ -105,6 +103,7 @@ static void fetch_and_display(const struct device *sensor)
 	lorem_ipsum[7] = accel[1].val2;
 	lorem_ipsum[8] = accel[2].val1;
 	lorem_ipsum[9] = accel[2].val2;
+	send_udp_data(&conf.ipv6);
 
 	if (rc < 0) {
 		LOG_INF("ERROR: Update failed: %d\n", rc);
@@ -168,9 +167,9 @@ static void accelerometer(){
 		}
 
 		LOG_INF("Waiting for triggers\n");
-		while (true) {
-			k_sleep(K_MSEC(2000));
-		}
+		//while (true) {
+			//k_sleep(K_MSEC(2000));
+		//}
 	}
 #endif /* CONFIG_LIS2DH_TRIGGER */
 
@@ -186,26 +185,19 @@ static int start_client(void)
 		ret = start_udp();
 
 		while (ret == 0) {
-			accelerometer();
-			fetch_and_display(sensor);
-			k_sleep(K_MSEC(2000));
-			send_udp_data(&conf.ipv6);
+			if (rnb_role == REDNODEBUS_USER_ROLE_TAG){
+				accelerometer();
+				fetch_and_display(sensor);
+				k_sleep(K_MSEC(2000));
 
-			if (iterations > 0) {
-				i++;
-				if (i >= iterations) {
-					break;
+				if (iterations > 0) {
+					i++;
+					if (i >= iterations) {
+						break;
 
+					}
 				}
 			}
-			//if (rnb_role == REDNODEBUS_USER_ROLE_TAG)
-			//{
-			//	k_sleep(K_MSEC(UDP_TRANSMISSION_PERIOD_TAG_MSEC));
-			//}
-			//else
-			//{
-			//	k_sleep(K_MSEC(UDP_TRANSMISSION_PERIOD_MSEC));
-			//}
 		}
 		stop_udp();
 	}

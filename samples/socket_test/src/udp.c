@@ -25,7 +25,7 @@ int send_udp_data(struct data *data)
 	int ret;
 	static int packets_sent;
 
-	//memcpy(&lorem_ipsum[UID_CHARS + SESSION_RAND_CHARS], &packets_sent, sizeof(packets_sent));
+
 	lorem_ipsum[3] = packets_sent;
 
 	do {

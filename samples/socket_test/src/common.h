@@ -42,7 +42,6 @@ struct configs {
 #endif
 
 extern int32_t lorem_ipsum[];
-//extern char lorem_ipsum;
 extern const int ipsum_len;
 extern struct configs conf;
 
