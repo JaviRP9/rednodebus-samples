@@ -41,7 +41,6 @@ To test the echo client, the `socket_test.py` file located in the `script` folde
 Using the `socket_test.py` script in the same machine running the RNB OTBR docker (or one reachable through the IP network), the echo service can be tested.
 
 The IPv4 address (converted to an IPv6 equivalent) of the machine running the `socket_test.py` can be specified in the `common.h` file:
-```
 
 For example, if the server runs in the following local IP (default Docker IP):
 ```
@@ -60,3 +59,34 @@ Finally, we specify it in the corresponding define in `common.h`:
 ```
 #define CONFIG_NET_CONFIG_PEER_IPV6_ADDR "2001:0db8:0001:ffff:0000:0000:ac11:0001"
 ```
+
+### Accelerometer Configuration
+It is possible to configure the accelerometer with differents features. To configure, add the necesary in the file `prj.conf`. The accelerometer works if the board acts as a TAG.
+
+#### Resolution
+
+High resolution (12 bit)
+```
+CONFIG_LIS2DH_OPER_MODE_HIGH_RES=y
+```
+Normal (10 bit)
+```
+CONFIG_LIS2DH_OPER_MODE_NORMAL=y
+```
+Low power operation (8 bit)
+```
+CONFIG_LIS2DH_OPER_LOW_POWER=y
+```
+
+#### Sampling Frequency
+To set output data rate frequency, specify the type of triggering to be used by the driver.
+```
+CONFIG_LIS2DH_TRIGGER_GLOBAL_THREAD=y
+```
+Then you can choose between the different frequencies.
+```
+CONFIG_LIS2DH_ODR_X=y
+```
+> X are the different possible frequency values [1 9]. The available sampling frequencies can be viewed at  `zephyr/drivers/sensor/lis2dh/Kconfig`
+
+
