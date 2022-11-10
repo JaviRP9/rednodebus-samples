@@ -76,7 +76,7 @@ CONFIG_LIS2DH_OPER_MODE_NORMAL=y
 ```
 Low power operation (8 bit)
 ```
-CONFIG_LIS2DH_OPER_MODE_LOW_POWER=n=y
+CONFIG_LIS2DH_OPER_MODE_LOW_POWER=y
 ```
 
 #### Operating modes 
