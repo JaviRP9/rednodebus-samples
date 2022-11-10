@@ -167,9 +167,6 @@ static void accelerometer(){
 		}
 
 		LOG_INF("Waiting for triggers\n");
-		//while (true) {
-			//k_sleep(K_MSEC(2000));
-		//}
 	}
 #endif /* CONFIG_LIS2DH_TRIGGER */
 
@@ -184,17 +181,20 @@ static int start_client(void)
 	while (iterations == 0 || i < iterations) {
 		ret = start_udp();
 
-		while (ret == 0) {
-			if (rnb_role == REDNODEBUS_USER_ROLE_TAG){
-				accelerometer();
-				fetch_and_display(sensor);
+		if (rnb_role == REDNODEBUS_USER_ROLE_TAG){
+			accelerometer();
+			while (ret == 0) {
+
+				if (!IS_ENABLED(CONFIG_LIS2DH_TRIGGER_GLOBAL_THREAD)) {
+					//If trigger not set, Polling at 0.5 Hz
+					fetch_and_display(sensor);
+				}
 				k_sleep(K_MSEC(2000));
 
 				if (iterations > 0) {
 					i++;
 					if (i >= iterations) {
 						break;
-
 					}
 				}
 			}

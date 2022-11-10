@@ -64,6 +64,7 @@ Finally, we specify it in the corresponding define in `common.h`:
 It is possible to configure the accelerometer with differents features. To configure, add the necesary in the file `prj.conf`. The accelerometer works if the board acts as a TAG.
 
 #### Resolution
+The default resolution is 10 bits, all the possible resolutions are: 
 
 High resolution (12 bit)
 ```
@@ -75,11 +76,20 @@ CONFIG_LIS2DH_OPER_MODE_NORMAL=y
 ```
 Low power operation (8 bit)
 ```
-CONFIG_LIS2DH_OPER_LOW_POWER=y
+CONFIG_LIS2DH_OPER_MODE_LOW_POWER=n=y
 ```
 
-#### Sampling Frequency
-To set output data rate frequency, specify the type of triggering to be used by the driver.
+#### Operating modes 
+You can choose between two types of operation, default or trigger mode.
+
+##### Default Mode
+The default sample works with a sampling frecuency of 0.5 Hz. The following option will have to be disabled:
+```
+CONFIG_LIS2DH_TRIGGER_GLOBAL_THREAD=n
+```
+
+##### Trigger Mode
+To set a different output data rate frequency, you have to specify the type of triggering to be used by the driver. The following options will have to be activated:
 ```
 CONFIG_LIS2DH_TRIGGER_GLOBAL_THREAD=y
 ```
